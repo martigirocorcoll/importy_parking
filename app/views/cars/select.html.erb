@@ -1,0 +1,84 @@
+
+<p id="notice"><%= notice %></p>
+<div class = "container-fluid text-center mt-4">
+<div class = "mb-5">
+<% if params["query1"].present? %>
+  <h1 class="text-center">Lista de los coches aparcados a <%=params["query1"]%>/ <%=params["query2"]%></h1>
+<% else%>
+  <h1 class="text-center">Selecciona un mes para filtrar</h1>
+<% end %>
+</div>
+
+<div class = "mb-5">
+  <%= form_tag select_cars_path, method: :get do %>
+    <%=select_tag :query1,
+    raw("<option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option>")%>
+  <%=select_tag :query2,
+    raw("<option>2021</option><option>2022</option>")%>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<% if params["query1"].present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Coche</th>
+        <th scope="col">Llegada</th>
+        <th scope="col">Salida</th>
+        <th scope="col">Días</th>
+        <th scope="col">Precio</th>
+        <%# <th scope="col">Action</th> %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cars.reverse().each do |car| %>
+        <tr>
+          <th scope="row">
+            <%= link_to "#{car.name}", edit_car_path(car), method: :get %>
+          </th>
+          <td><%= car.entry_time %></td>
+          <td><%= car.out_time == nil ? "-" : car.out_time %></td>
+          <%if @month_today == @month && @year_today == @year%>
+            <% if car.entry_time > @first_month_day %>
+              <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i.to_s : (car.out_time - car.entry_time).to_i.to_s %></td>
+            <% else %>
+              <td><%= car.out_time == nil ? (Date.today - @first_month_day).to_i.to_s : (car.out_time - @first_month_day).to_i.to_s %></td>
+            <% end %>
+
+            <% if car.entry_time > @first_month_day %>
+              <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i*2.67 : (car.out_time - car.entry_time).to_i*2.67%>€</td>
+            <% else %>
+              <td><%= car.out_time == nil ? (Date.today - @first_month_day).to_i*2.67 : (car.out_time - @first_month_day).to_i*2.67%>€</td>
+            <% end %>
+
+          <%else%>
+            <% if car.entry_time > @first_month_day %>
+              <td><%= car.out_time == nil ? (@last_month_day - car.entry_time).to_i.to_s : ([@last_month_day, car.out_time].min - car.entry_time).to_i.to_s %></td>
+            <% else %>
+              <td><%= car.out_time == nil ? (@last_month_day - @first_month_day).to_i.to_s : ([@last_month_day, car.out_time].min - @first_month_day).to_i.to_s %></td>
+            <% end %>
+
+            <% if car.entry_time > @first_month_day %>
+              <td><%= car.out_time == nil ? (@last_month_day - car.entry_time).to_i*2.67 : ([@last_month_day, car.out_time].min - car.entry_time).to_i*2.67%>€</td>
+            <% else %>
+              <td><%= car.out_time == nil ? (@last_month_day - @first_month_day).to_i*2.67 : ([@last_month_day, car.out_time].min - @first_month_day).to_i*2.67%>€</td>
+            <% end %>
+
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="col"> <%=@cars_num%></th>
+        <th scope="col">-</th>
+        <th scope="col">-</th>
+        <th scope="col"><%=  %>dias</th>
+        <th scope="col"><%=  %>€</th>
+        <%# <th scope="col">Action</th> %>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+<% end%>

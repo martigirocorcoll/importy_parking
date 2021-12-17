@@ -4,6 +4,58 @@ class CarsController < ApplicationController
   # GET /cars or /cars.json
   def index
     @cars = Car.all
+    @cars_num = Car.all.count
+    cars_days = 0
+    days = 0
+    @cars.each do |car|
+      if car.out_time == nil
+        days = (Date.today - car.entry_time).to_i
+      else
+        days = (car.out_time - car.entry_time).to_i
+      end
+      cars_days += days
+    end
+    @total_days = cars_days
+    @total_price = @total_days*2.67
+  end
+
+  def select
+    if params["query1"].present?
+      @first_month_day = Date.parse("#{params["query2"]}-#{params["query1"]}-01")
+      case params["query1"]
+      when "01","03","05","07","08","10","12"
+        @last_month_day = Date.parse("#{params["query2"]}-#{params["query1"]}-31")
+      when "02"
+        @last_month_day = Date.parse("#{params["query2"]}-#{params["query1"]}-28")
+      else
+        @last_month_day = Date.parse("#{params["query2"]}-#{params["query1"]}-30")
+      end
+      @month = params["query1"]
+      @year = params["query2"]
+      @year_today = Date.today.strftime("%Y")
+      @month_today = Date.today.strftime("%m")
+
+    end
+
+
+    cars0 = Car.where("entry_time <= ?", @last_month_day)
+    cars1 = cars0.where("out_time >= ?", @first_month_day)
+    cars2 = cars0.where(out_time: nil)
+    @cars = cars1 + cars2
+
+    @cars_num = @cars.count
+    cars_days = 0
+    days = 0
+    @cars.each do |car|
+      if car.out_time == nil
+        days = (Date.today - @first_month_day).to_i
+      else
+        days = (car.out_time - @first_month_day).to_i
+      end
+      cars_days += days
+    end
+    @total_days = cars_days
+    @total_price = @total_days * 2.67
   end
 
   # GET /cars/1 or /cars/1.json
