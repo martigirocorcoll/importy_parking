@@ -22,7 +22,7 @@
         <td><%= car.entry_time %></td>
         <td><%= car.out_time == nil ? "-" : car.out_time %></td>
         <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i.to_s : (car.out_time - car.entry_time).to_i.to_s %></td>
-        <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i*2.67 : (car.out_time - car.entry_time).to_i*2.67 %>€</td>
+        <td><%= car.out_time == nil ? number_with_precision((Date.today - car.entry_time).to_i*2.67, precision: 2) : number_with_precision((car.out_time - car.entry_time).to_i*2.67, precision: 2) %>€</td>
         <%  if current_user.email == "marti@gmail.com"%>
           <td><%= link_to "Delete",
                   car_path(car),
@@ -38,7 +38,7 @@
       <th scope="col">-</th>
       <th scope="col">-</th>
       <th scope="col"><%= @total_days %></th>
-      <th scope="col"><%= @total_price %>€</th>
+      <th scope="col"><%= number_with_precision(@total_price, precision: 2) %>€</th>
       <%# <th scope="col">Action</th> %>
     </tr>
   </tfoot>
