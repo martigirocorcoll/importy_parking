@@ -3,7 +3,7 @@
 <div class = "container-fluid text-center mt-4">
 <div class = "mb-5">
 <% if params["query1"].present? %>
-  <h1 class="text-center">Lista de los coches aparcados a <%=params["query1"]%>/ <%=params["query2"]%></h1>
+  <h1 class="text-center">Lista de los coches aparcados a <strong><%=params["query1"]%>/<%=params["query2"]%></strong></h1>
 <% else%>
   <h1 class="text-center">Selecciona un mes para filtrar</h1>
 <% end %>
