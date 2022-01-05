@@ -14,7 +14,7 @@
     <%=select_tag :query1,
     raw("<option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option>")%>
   <%=select_tag :query2,
-    raw("<option>2021</option><option>2022</option>")%>
+    raw("<option>2022</option><option>2023</option>")%>
     <%= submit_tag "Search", class: "btn btn-primary" %>
   <% end %>
 </div>
@@ -81,7 +81,6 @@
         <th scope="col">-</th>
         <th scope="col"><%= days %></th>
         <th scope="col"><%= number_with_precision(days * 2.67, precision: 2)%>€</th>
-        <th scope="col"><%= number_with_precision(days * 2.67 , precision: 2)%>€</th>
         <%# <th scope="col">Action</th> %>
       </tr>
     </tfoot>
@@ -89,7 +88,7 @@
   </div>
   <div>
   <h1 class="text-center">Precio a final de mes</h1>
-  <h2><%= days * 2.67 - 240 %></h2>
+  <h2 class="text-center"><%= number_with_precision(days * 2.67 - 240, precision: 2) %> €</h2>
 
   </div>
 <% end%>
