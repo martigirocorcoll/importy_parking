@@ -81,9 +81,15 @@
         <th scope="col">-</th>
         <th scope="col"><%= days %></th>
         <th scope="col"><%= number_with_precision(days * 2.67, precision: 2)%>€</th>
+        <th scope="col"><%= number_with_precision(days * 2.67 , precision: 2)%>€</th>
         <%# <th scope="col">Action</th> %>
       </tr>
     </tfoot>
   </table>
+  </div>
+  <div>
+  <h1 class="text-center">Precio a final de mes</h1>
+  <h2><%= days * 2.67 - 240 %></h2>
+
   </div>
 <% end%>
