@@ -61,7 +61,7 @@
               <% car.out_time == nil ? days += (@last_month_day - car.entry_time).to_i : days += ([@last_month_day, car.out_time].min - car.entry_time).to_i %>
             <% else %>
               <td><%= car.out_time == nil ? (@last_month_day - @first_month_day).to_i.to_s : ([@last_month_day, car.out_time].min - @first_month_day).to_i.to_s %></td>
-              <% car.out_time == nil ? days += (@last_month_day - @first_month_day).to_i.to_s : days += ([@last_month_day, car.out_time].min - @first_month_day).to_i.to_s %>
+              <% car.out_time == nil ? days += (@last_month_day - @first_month_day).to_i : days += ([@last_month_day, car.out_time].min - @first_month_day).to_i %>
             <% end %>
 
             <% if car.entry_time > @first_month_day %>
