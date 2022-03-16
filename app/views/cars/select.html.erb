@@ -42,32 +42,32 @@
           <td><%= car.out_time == nil ? "-" : car.out_time %></td>
           <%if @month_today == @month && @year_today == @year%>
             <% if car.entry_time > @first_month_day %>
-              <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i.to_s : (car.out_time - car.entry_time).to_i.to_s %></td>
-              <% car.out_time == nil ? days += (Date.today - car.entry_time).to_i : days += (car.out_time - car.entry_time).to_i %>
+              <td><%= car.out_time == nil ? (Date.today - car.entry_time + 1).to_i.to_s : (car.out_time - car.entry_time + 1).to_i.to_s %></td>
+              <% car.out_time == nil ? days += (Date.today - car.entry_time + 1).to_i : days += (car.out_time - car.entry_time + 1).to_i %>
             <% else %>
-              <td><%= car.out_time == nil ? (Date.today - @first_month_day).to_i.to_s : (car.out_time - @first_month_day).to_i.to_s %></td>
-              <% car.out_time == nil ? days += (Date.today - @first_month_day).to_i : days += (car.out_time - @first_month_day).to_i %>
+              <td><%= car.out_time == nil ? (Date.today - @first_month_day + 1).to_i.to_s : (car.out_time - @first_month_day + 1).to_i.to_s %></td>
+              <% car.out_time == nil ? days += (Date.today - @first_month_day + 1).to_i : days += (car.out_time - @first_month_day + 1).to_i %>
             <% end %>
 
             <% if car.entry_time > @first_month_day %>
-              <td><%= car.out_time == nil ? number_with_precision((Date.today - car.entry_time).to_i*2.67, precision: 2) : number_with_precision((car.out_time - car.entry_time).to_i*2.67, precision: 2)%>€</td>
+              <td><%= car.out_time == nil ? number_with_precision((Date.today - car.entry_time + 1).to_i*2.67, precision: 2) : number_with_precision((car.out_time - car.entry_time + 1).to_i*2.67, precision: 2)%>€</td>
             <% else %>
-              <td><%= car.out_time == nil ? number_with_precision((Date.today - @first_month_day).to_i*2.67, precision: 2) : number_with_precision((car.out_time - @first_month_day).to_i*2.67, precision: 2)%>€</td>
+              <td><%= car.out_time == nil ? number_with_precision((Date.today - @first_month_day + 1).to_i*2.67, precision: 2) : number_with_precision((car.out_time - @first_month_day + 1).to_i*2.67, precision: 2)%>€</td>
             <% end %>
 
           <%else%>
             <% if car.entry_time > @first_month_day %>
-              <td><%= car.out_time == nil ? (@last_month_day - car.entry_time).to_i.to_s : ([@last_month_day, car.out_time].min - car.entry_time).to_i.to_s %></td>
-              <% car.out_time == nil ? days += (@last_month_day - car.entry_time).to_i : days += ([@last_month_day, car.out_time].min - car.entry_time).to_i %>
+              <td><%= car.out_time == nil ? (@last_month_day - car.entry_time + 1).to_i.to_s : ([@last_month_day, car.out_time].min - car.entry_time + 1).to_i.to_s %></td>
+              <% car.out_time == nil ? days += (@last_month_day - car.entry_time + 1).to_i : days += ([@last_month_day, car.out_time].min - car.entry_time + 1).to_i %>
             <% else %>
-              <td><%= car.out_time == nil ? (@last_month_day - @first_month_day).to_i.to_s : ([@last_month_day, car.out_time].min - @first_month_day).to_i.to_s %></td>
-              <% car.out_time == nil ? days += (@last_month_day - @first_month_day).to_i : days += ([@last_month_day, car.out_time].min - @first_month_day).to_i %>
+              <td><%= car.out_time == nil ? (@last_month_day - @first_month_day + 1).to_i.to_s : ([@last_month_day, car.out_time].min - @first_month_day + 1).to_i.to_s %></td>
+              <% car.out_time == nil ? days += (@last_month_day - @first_month_day + 1).to_i : days += ([@last_month_day, car.out_time].min - @first_month_day + 1).to_i %>
             <% end %>
 
             <% if car.entry_time > @first_month_day %>
-              <td><%= car.out_time == nil ? number_with_precision((@last_month_day - car.entry_time).to_i*2.67, precision: 2): number_with_precision(([@last_month_day, car.out_time].min - car.entry_time).to_i*2.67, precision: 2)%>€</td>
+              <td><%= car.out_time == nil ? number_with_precision((@last_month_day - car.entry_time + 1).to_i*2.67, precision: 2): number_with_precision(([@last_month_day, car.out_time].min - car.entry_time + 1).to_i*2.67, precision: 2)%>€</td>
             <% else %>
-              <td><%= car.out_time == nil ? number_with_precision((@last_month_day - @first_month_day).to_i*2.67, precision:2) : number_with_precision(([@last_month_day, car.out_time].min - @first_month_day).to_i*2.67, precision: 2)%>€</td>
+              <td><%= car.out_time == nil ? number_with_precision((@last_month_day - @first_month_day + 1).to_i*2.67, precision:2) : number_with_precision(([@last_month_day, car.out_time].min - @first_month_day + 1).to_i*2.67, precision: 2)%>€</td>
             <% end %>
 
           <% end %>
@@ -86,6 +86,7 @@
   </table>
   </div>
   <div>
+
   <h1 class="text-center">Precio a final de mes</h1>
   <h2 class="text-center"><%= number_with_precision(days * 2.67 - 240, precision: 2) %> €</h2>
 
