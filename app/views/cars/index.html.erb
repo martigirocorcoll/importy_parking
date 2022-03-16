@@ -21,8 +21,8 @@
         </th>
         <td><%= car.entry_time %></td>
         <td><%= car.out_time == nil ? "-" : car.out_time %></td>
-        <td><%= car.out_time == nil ? (Date.today - car.entry_time).to_i.to_s : (car.out_time - car.entry_time).to_i.to_s %></td>
-        <td><%= car.out_time == nil ? number_with_precision((Date.today - car.entry_time).to_i*2.67, precision: 2) : number_with_precision((car.out_time - car.entry_time).to_i*2.67, precision: 2) %>€</td>
+        <td><%= car.out_time == nil ? (Date.today - car.entry_time + 1).to_i.to_s : (car.out_time - car.entry_time + 1).to_i.to_s %></td>
+        <td><%= car.out_time == nil ? number_with_precision((Date.today - car.entry_time + 1).to_i*2.67, precision: 2) : number_with_precision((car.out_time - car.entry_time + 1).to_i*2.67, precision: 2) %>€</td>
         <%  if current_user.email == "marti@gmail.com"%>
           <td><%= link_to "Delete",
                   car_path(car),

@@ -8,9 +8,9 @@ class CarsController < ApplicationController
     days = 0
     @cars.each do |car|
       if car.out_time == nil
-        days = (Date.today - car.entry_time).to_i
+        days = (Date.today - car.entry_time + 1).to_i
       else
-        days = (car.out_time - car.entry_time).to_i
+        days = (car.out_time - car.entry_time + 1).to_i
       end
       cars_days += days
     end
